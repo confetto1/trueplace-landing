@@ -235,7 +235,7 @@ export default function Home() {
         <div className="container">
           <div className="results-section-intro">
             <h2 className="fade-in-up">Our Impact</h2>
-            <p className="fade-in-up">Across all our platforms, we've helped thousands of candidates achieve their career goals.</p>
+            <p className="fade-in-up">Across all our platforms, we&apos;ve helped thousands of candidates achieve their career goals.</p>
           </div>
           
           <div className="results-grid">
