@@ -79,7 +79,7 @@ export default function Home() {
         const dotPattern = document.createElement('div');
         dotPattern.className = 'dot-pattern';
         Object.entries(pos).forEach(([key, value]) => {
-          dotPattern.style[key as any] = value;
+          dotPattern.style[key as keyof CSSStyleDeclaration] = value;
         });
         document.body.appendChild(dotPattern);
       });
