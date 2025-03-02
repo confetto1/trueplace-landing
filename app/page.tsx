@@ -78,9 +78,13 @@ export default function Home() {
       patterns.forEach(pos => {
         const dotPattern = document.createElement('div');
         dotPattern.className = 'dot-pattern';
-        Object.entries(pos).forEach(([key, value]) => {
-          dotPattern.style[key as keyof CSSStyleDeclaration] = value;
-        });
+        
+        // Safer way to set styles
+        if ('top' in pos) dotPattern.style.top = pos.top as string;
+        if ('left' in pos) dotPattern.style.left = pos.left as string;
+        if ('right' in pos) dotPattern.style.right = pos.right as string;
+        if ('bottom' in pos) dotPattern.style.bottom = pos.bottom as string;
+        
         document.body.appendChild(dotPattern);
       });
     };
