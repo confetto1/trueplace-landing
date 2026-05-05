@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 
 function TrueplaceMark({ size = 26 }: { size?: number }) {
-  const cell = (size - 4) / 2; // 2 cells with a small gap
   return (
     <svg
       width={size}
