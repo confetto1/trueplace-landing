@@ -3,6 +3,268 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 
+function AbstractCircuit() {
+  // Four long lines crossing the canvas (2 vertical + 2 horizontal),
+  // forming a # pattern with pin terminals at the 8 outer ends.
+  type V = { x: number; delay: number; reverse?: boolean };
+  type H = { y: number; delay: number; reverse?: boolean };
+
+  const verticals: V[] = [
+    { x: 170, delay: 0.0 },
+    { x: 230, delay: 1.4, reverse: true },
+  ];
+  const horizontals: H[] = [
+    { y: 170, delay: 0.7 },
+    { y: 230, delay: 2.1, reverse: true },
+  ];
+
+  const renderPin = (cx: number, cy: number, key: string) => (
+    <g key={key}>
+      <circle cx={cx} cy={cy} r="9" fill="url(#pin-glow)" />
+      <circle cx={cx} cy={cy} r="4.5" fill="#fcfaf6" stroke="rgba(176,74,42,0.55)" strokeWidth="1.25" />
+      <circle cx={cx} cy={cy} r="1.6" fill="rgba(176,74,42,0.85)" />
+    </g>
+  );
+
+  return (
+    <div className="relative mx-auto aspect-square w-full max-w-[320px]">
+      {/* Soft ambient glow */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(circle at 50% 50%, rgba(176,74,42,0.10), transparent 65%)',
+        }}
+        aria-hidden
+      />
+
+      <svg viewBox="0 0 400 400" className="relative h-full w-full">
+        <defs>
+          <radialGradient id="pin-glow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stopColor="rgba(176,74,42,0.55)" />
+            <stop offset="100%" stopColor="rgba(176,74,42,0)" />
+          </radialGradient>
+        </defs>
+
+        {/* Vertical lines */}
+        {verticals.map((t, i) => (
+          <line
+            key={`v-${i}`}
+            x1={t.x}
+            y1={50}
+            x2={t.x}
+            y2={350}
+            stroke="rgba(176,74,42,0.32)"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+          />
+        ))}
+
+        {/* Horizontal lines */}
+        {horizontals.map((t, i) => (
+          <line
+            key={`h-${i}`}
+            x1={50}
+            y1={t.y}
+            x2={350}
+            y2={t.y}
+            stroke="rgba(176,74,42,0.32)"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+          />
+        ))}
+
+        {/* Pin terminals — 8 outer ends */}
+        {verticals.flatMap((t, i) => [
+          renderPin(t.x, 50,  `v-pin-${i}-top`),
+          renderPin(t.x, 350, `v-pin-${i}-bot`),
+        ])}
+        {horizontals.flatMap((t, i) => [
+          renderPin(50,  t.y, `h-pin-${i}-l`),
+          renderPin(350, t.y, `h-pin-${i}-r`),
+        ])}
+
+        {/* Pulses on verticals */}
+        {verticals.map((t, i) => {
+          const from = t.reverse ? 350 : 50;
+          const to = t.reverse ? 50 : 350;
+          return (
+            <circle key={`v-pulse-${i}`} r="3" cx={t.x} fill="#b04a2a" style={{ filter: 'drop-shadow(0 0 6px rgba(176,74,42,0.6))' }}>
+              <animate attributeName="cy" values={`${from};${to}`} dur="6.5s" repeatCount="indefinite" begin={`${t.delay}s`} />
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="6.5s" repeatCount="indefinite" begin={`${t.delay}s`} />
+            </circle>
+          );
+        })}
+
+        {/* Pulses on horizontals */}
+        {horizontals.map((t, i) => {
+          const from = t.reverse ? 350 : 50;
+          const to = t.reverse ? 50 : 350;
+          return (
+            <circle key={`h-pulse-${i}`} r="3" cy={t.y} fill="#b04a2a" style={{ filter: 'drop-shadow(0 0 6px rgba(176,74,42,0.6))' }}>
+              <animate attributeName="cx" values={`${from};${to}`} dur="7s" repeatCount="indefinite" begin={`${t.delay}s`} />
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="7s" repeatCount="indefinite" begin={`${t.delay}s`} />
+            </circle>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+function LiveInterviewMockup({ compact = false }: { compact?: boolean }) {
+  const transcript = compact
+    ? [
+        { speaker: 'AI', text: 'Walk me through how you’d approach the case.' },
+        { speaker: 'You', text: 'I’d clarify the goal — revenue, share, or margin?' },
+        { speaker: 'AI', text: 'Margin. What are the levers?' },
+      ]
+    : [
+        { speaker: 'AI', text: 'Walk me through how you’d approach the case.' },
+        { speaker: 'You', text: 'I’d start by clarifying the goal — is the client optimizing for revenue, market share, or margin?' },
+        { speaker: 'AI', text: 'Good. Assume margin. What are the levers?' },
+        { speaker: 'You', text: 'Three buckets: pricing, mix, and unit economics…' },
+      ];
+  const scores = [
+    { label: 'Structure', score: 4.8 },
+    { label: 'Communication', score: 4.6 },
+    { label: 'Frameworks', score: 4.7 },
+    { label: 'Confidence', score: 4.4 },
+  ];
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-[color:var(--color-line)] bg-white/80 shadow-[0_30px_80px_-40px_rgba(20,17,15,0.18)] backdrop-blur">
+      {/* Top bar */}
+      <div className="flex items-center justify-between border-b border-[color:var(--color-line-soft)] px-5 py-3">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-[color:var(--color-line)]" />
+            <span className="h-2 w-2 rounded-full bg-[color:var(--color-line)]" />
+            <span className="h-2 w-2 rounded-full bg-[color:var(--color-line)]" />
+          </div>
+          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[color:var(--color-mute)]">
+            trueplace · live session
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="relative inline-flex h-1.5 w-1.5">
+            <span className="absolute inset-0 rounded-full bg-[color:var(--color-accent)] live-dot" />
+          </span>
+          <span className="font-mono text-[11px] tabular-nums text-[color:var(--color-mute)]">
+            00:14:32
+          </span>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div className={`grid gap-px bg-[color:var(--color-line-soft)] ${compact ? 'grid-cols-1' : 'md:grid-cols-[280px_1fr_240px]'}`}>
+        {/* Avatar */}
+        <div className={`flex flex-col items-center justify-center bg-[color:var(--color-cream)] px-6 ${compact ? 'py-7' : 'py-10'}`}>
+          <div className={`relative flex items-center justify-center ${compact ? 'h-24 w-24' : 'h-28 w-28'}`}>
+            <span className="absolute inset-0 rounded-full border border-[color:var(--color-accent)]/40 avatar-ring" style={{ animationDelay: '0s' }} />
+            <span className="absolute inset-0 rounded-full border border-[color:var(--color-accent)]/40 avatar-ring" style={{ animationDelay: '1.05s' }} />
+            <span className="absolute inset-0 rounded-full border border-[color:var(--color-accent)]/40 avatar-ring" style={{ animationDelay: '2.1s' }} />
+            <span className={`relative flex items-center justify-center rounded-full bg-gradient-to-br from-[color:var(--color-accent)] to-[#7a2c14] text-white shadow-[inset_0_-8px_20px_rgba(0,0,0,0.15)] ${compact ? 'h-16 w-16' : 'h-20 w-20'}`}>
+              <svg width={compact ? 22 : 28} height={compact ? 22 : 28} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <circle cx="12" cy="9" r="3.5" />
+                <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" />
+              </svg>
+            </span>
+          </div>
+          <p className="mt-5 font-serif text-[18px] leading-tight text-[color:var(--color-ink)]">
+            Interviewer
+          </p>
+          <p className="mt-1 font-mono text-[10px] uppercase text-[color:var(--color-mute)]">
+            <span className="speaking-pulse">speaking</span>
+          </p>
+          <div className="mt-4 flex h-6 items-center gap-[3px]">
+            {[12, 22, 14, 26, 10, 24, 16, 28, 12, 20].map((h, i) => (
+              <span
+                key={i}
+                className="wave-bar w-[3px] rounded-full bg-[color:var(--color-accent)]/60"
+                style={{ height: `${h}px`, animationDelay: `${i * 0.08}s` }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Transcript */}
+        <div className="flex flex-col bg-[color:var(--color-cream)] px-6 py-7">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-mute)]">
+              Live transcript
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-mute)]">
+              MMI · Round 1
+            </span>
+          </div>
+          <div className="mt-5 space-y-4">
+            {transcript.map((line, i) => (
+              <div key={i} className="transcript-line flex gap-3" style={{ animationDelay: `${i * 0.18}s` }}>
+                <span
+                  className={`mt-[3px] flex h-5 shrink-0 items-center rounded-md px-1.5 font-mono text-[9px] uppercase tracking-[0.14em] ${
+                    line.speaker === 'AI'
+                      ? 'bg-[color:var(--color-accent-soft)] text-[color:var(--color-accent)]'
+                      : 'bg-[color:var(--color-line-soft)] text-[color:var(--color-ink-soft)]'
+                  }`}
+                >
+                  {line.speaker}
+                </span>
+                <p className="text-[13.5px] leading-relaxed text-[color:var(--color-ink-soft)]">
+                  {line.text}
+                  {i === transcript.length - 1 && (
+                    <span className="cursor-blink ml-0.5 inline-block h-3 w-[2px] translate-y-0.5 bg-[color:var(--color-accent)]" />
+                  )}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Score panel */}
+        <div className="flex flex-col bg-[color:var(--color-cream)] px-6 py-7">
+          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-mute)]">
+            Live scoring
+          </span>
+          <div className="mt-5 space-y-4">
+            {scores.map((s) => (
+              <div key={s.label}>
+                <div className="flex items-baseline justify-between">
+                  <span className="text-[12px] text-[color:var(--color-ink-soft)]">{s.label}</span>
+                  <span className="score-tick font-mono text-[12px] tabular-nums text-[color:var(--color-ink)]">
+                    {s.score.toFixed(1)}
+                  </span>
+                </div>
+                <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-[color:var(--color-line)]">
+                  <div
+                    className="score-fill h-full rounded-full bg-[color:var(--color-accent)]"
+                    style={{ ['--score' as string]: s.score / 5, width: '100%' }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 border-t border-[color:var(--color-line-soft)] pt-5">
+            <div className="flex items-baseline justify-between">
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-mute)]">
+                Overall
+              </span>
+              <span className="score-tick font-serif text-[26px] leading-none text-[color:var(--color-ink)]">
+                4.6
+                <span className="font-mono text-[11px] text-[color:var(--color-mute)]">/5</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom data-flow shimmer */}
+      <div className="relative h-[2px] w-full overflow-hidden bg-[color:var(--color-line-soft)]">
+        <div className="absolute inset-0 flow-shimmer opacity-70" />
+      </div>
+    </div>
+  );
+}
+
 function TrueplaceMark({ size = 26 }: { size?: number }) {
   return (
     <svg
@@ -84,10 +346,10 @@ export default function Home() {
             </a>
           </div>
           <h1 className="font-serif text-[48px] font-normal leading-[1.02] tracking-[-0.02em] text-[color:var(--color-ink)] sm:text-[72px] md:text-[92px] md:leading-[0.98]">
-            <span className="hero-rise delay-1 inline-block">AI interviews,</span>
+            <span className="hero-rise delay-1 inline-block">AI-native</span>
             <br />
             <span className="accent-word font-mono text-[color:var(--color-accent)]" style={{ fontWeight: 500, letterSpacing: '-0.04em' }}>
-              perfected
+              preparation
             </span>
             <span className="hero-rise delay-3 inline-block font-serif text-[color:var(--color-accent)]">.</span>
           </h1>
@@ -135,7 +397,7 @@ export default function Home() {
 
           <div className="mt-16 grid gap-6 md:grid-cols-2">
             {/* Soreno */}
-            <div className="product-card fade-up relative flex flex-col overflow-hidden rounded-2xl border border-[color:var(--color-line)] bg-white/70 p-8 backdrop-blur sm:p-10">
+            <div className="product-card fade-up relative flex flex-col overflow-hidden rounded-2xl border border-[rgba(176,74,42,0.35)] bg-white/70 p-8 shadow-[0_24px_60px_-28px_rgba(20,17,15,0.18)] backdrop-blur sm:p-10">
               <div className="flex h-12 items-center justify-between">
                 <Image
                   src="/soreno-logo.png"
@@ -150,7 +412,7 @@ export default function Home() {
                 The trusted interviewer for the next <span className="italic text-[color:var(--color-accent)]">generation</span> of strategy.
               </h3>
               <p className="mt-5 flex-1 text-[15px] leading-relaxed text-[color:var(--color-mute)]">
-                A live voice AI that drills candidates on market sizing, profitability, and structuring cases — with instant, partner-grade feedback.
+                A real-time AI that prepares candidates for consulting, strategy, and product management.
               </p>
               <div className="mt-10">
                 <a
@@ -168,7 +430,7 @@ export default function Home() {
             </div>
 
             {/* Confetto */}
-            <div className="product-card fade-up relative flex flex-col overflow-hidden rounded-2xl border border-[color:var(--color-line)] bg-white/70 p-8 backdrop-blur sm:p-10">
+            <div className="product-card fade-up relative flex flex-col overflow-hidden rounded-2xl border border-[rgba(176,74,42,0.35)] bg-white/70 p-8 shadow-[0_24px_60px_-28px_rgba(20,17,15,0.18)] backdrop-blur sm:p-10">
               <div className="flex h-12 items-center justify-between">
                 <Image
                   src="/confetto-logo.png"
@@ -180,10 +442,10 @@ export default function Home() {
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-mute)]">Healthcare</span>
               </div>
               <h3 className="mt-10 font-serif text-[26px] font-normal leading-[1.15] tracking-[-0.01em] sm:text-[30px]">
-                The trusted interviewer for the next <span className="italic text-[color:var(--color-accent)]">generation</span> of doctors.
+                The trusted interviewer for the next <span className="italic text-[color:var(--color-accent)]">generation</span> of healthcare.
               </h3>
               <p className="mt-5 flex-1 text-[15px] leading-relaxed text-[color:var(--color-mute)]">
-                Mock MMI and panel interviews for medical, dental, PA, nursing, and residency applicants — with rubric-aligned, AI-scored feedback.
+                A real-time AI to prepare for interviews in medical, dental, PA, nursing, and residency.
               </p>
               <div className="mt-10">
                 <a
@@ -293,26 +555,27 @@ export default function Home() {
 
       {/* About */}
       <section id="about" className="py-28 sm:py-36">
-        <div className="mx-auto max-w-5xl px-6 sm:px-8">
-          <div className="grid items-start gap-16 md:grid-cols-[1fr_1.4fr]">
+        <div className="mx-auto max-w-6xl px-6 sm:px-8">
+          <div className="grid items-center gap-12 md:grid-cols-[1fr_1.6fr] md:gap-16">
             <div className="fade-up">
-              <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">
-                About Trueplace
-              </p>
+              <AbstractCircuit />
             </div>
             <div className="fade-up space-y-6">
-              <h2 className="font-serif text-[36px] font-normal leading-[1.15] tracking-[-0.01em] sm:text-[44px]">
-                We believe AI is a <span className="italic text-[color:var(--color-accent)]">superpower</span> in preparation.
-              </h2>
-              <p className="text-[16px] leading-relaxed text-[color:var(--color-mute)]">
-                The hardest interviews — the ones that change careers — used to belong to candidates with the right coach, mentor, or peer. AI changes that. Every candidate gets unlimited practice with an interviewer that adapts to them, in real time.
+              <p className="font-mono text-[14px] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">
+                About Trueplace
               </p>
-              <p className="text-[16px] leading-relaxed text-[color:var(--color-mute)]">
-                Trueplace builds the AI interviewers that high-stakes careers deserve — voice-native, expert-aligned, and obsessively tuned for one job at a time.
+              <h2 className="font-serif text-[44px] font-normal leading-[1.05] tracking-[-0.015em] sm:text-[60px]">
+                We believe
+                <br />
+                AI is a <span className="italic text-[color:var(--color-accent)]">superpower</span>
+                <br />
+                in preparation.
+              </h2>
+              <p className="max-w-xl text-[17px] leading-relaxed text-[color:var(--color-mute)]">
+                Trueplace builds the AI that prepares you for your career.
               </p>
             </div>
           </div>
-
         </div>
       </section>
 
@@ -334,7 +597,7 @@ export default function Home() {
               href="mailto:hello@trueplace.ca"
               className="group inline-flex items-center gap-2 rounded-md bg-[color:var(--color-ink)] px-6 py-3 text-[14px] font-medium text-white transition hover:bg-[color:var(--color-accent)]"
             >
-              <span className="font-mono text-[14px]">hello@trueplace.ca</span>
+              <span className="text-[14px]">hello@trueplace.ca</span>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition group-hover:translate-x-0.5">
                 <path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

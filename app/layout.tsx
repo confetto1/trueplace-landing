@@ -24,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: 'Trueplace — AI interviews, perfected.',
+  title: 'Trueplace — AI-native preparation.',
   description:
     'Trueplace builds AI interview platforms. Home of Soreno AI and Confetto AI.',
 };
