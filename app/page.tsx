@@ -3,6 +3,25 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 
+function TrueplaceMark({ size = 26 }: { size?: number }) {
+  const cell = (size - 4) / 2; // 2 cells with a small gap
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 26 26"
+      fill="currentColor"
+      aria-hidden
+      className="text-[color:var(--color-accent)]"
+    >
+      <rect x="0" y="0" width="11" height="11" rx="1.5" />
+      <rect x="15" y="0" width="11" height="11" rx="1.5" />
+      <rect x="0" y="15" width="11" height="11" rx="1.5" />
+      <rect x="15" y="15" width="11" height="11" rx="1.5" />
+    </svg>
+  );
+}
+
 export default function Home() {
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,28 +41,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[color:var(--color-cream)] text-[color:var(--color-ink)]">
-      {/* Announcement bar */}
-      <div className="relative z-50 bg-[color:var(--color-accent)] text-white shimmer">
-        <div className="mx-auto flex h-9 max-w-7xl items-center justify-center px-6 text-[13px] sm:px-8">
-          <span className="opacity-95">
-            Confetto AI is the <span className="font-mono">#1</span> platform for medical school interview prep
-          </span>
-          <span className="ml-2 opacity-80">→</span>
-        </div>
-      </div>
-
       {/* Nav */}
       <nav className="sticky top-0 z-40 border-b border-[color:var(--color-line-soft)] bg-[color:var(--color-cream)]/85 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8">
           <a href="#" className="flex items-center gap-2.5">
-            <Image
-              src="/trueplace-icon.png"
-              alt="Trueplace"
-              width={26}
-              height={26}
-              className="h-[26px] w-[26px] object-contain"
-              priority
-            />
+            <TrueplaceMark size={26} />
             <span className="text-[15px] font-semibold tracking-tight">Trueplace</span>
           </a>
           <div className="hidden items-center gap-9 md:flex">
@@ -346,13 +348,7 @@ export default function Home() {
       <footer className="border-t border-[color:var(--color-line-soft)] py-12">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 sm:px-8 md:flex-row md:items-center">
           <div className="flex items-center gap-2.5">
-            <Image
-              src="/trueplace-icon.png"
-              alt="Trueplace"
-              width={22}
-              height={22}
-              className="h-[22px] w-[22px] object-contain"
-            />
+            <TrueplaceMark size={22} />
             <span className="text-sm font-semibold tracking-tight">Trueplace</span>
             <span className="ml-3 font-mono text-[11px] text-[color:var(--color-mute)]">© {new Date().getFullYear()}</span>
           </div>
