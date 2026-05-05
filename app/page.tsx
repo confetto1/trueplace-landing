@@ -193,10 +193,10 @@ export default function Home() {
             </a>
           </div>
           <h1 className="font-serif text-[48px] font-normal leading-[1.02] tracking-[-0.02em] text-[color:var(--color-ink)] sm:text-[72px] md:text-[92px] md:leading-[0.98]">
-            <span className="hero-rise delay-1 inline-block">AI-native</span>
+            <span className="hero-rise delay-1 inline-block">AI preparing you for the</span>
             <br />
             <span className="accent-word font-mono text-[color:var(--color-accent)]" style={{ fontWeight: 500, letterSpacing: '-0.04em' }}>
-              preparation
+              future
             </span>
             <span className="hero-rise delay-3 inline-block font-serif text-[color:var(--color-accent)]">.</span>
           </h1>
