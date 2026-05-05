@@ -75,7 +75,7 @@ export default function Home() {
               href="https://www.ycombinator.com/"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-3 rounded-full border border-[color:var(--color-line)] bg-white py-2 pl-4 pr-5 text-[14px] text-[color:var(--color-ink-soft)] shadow-[0_1px_2px_rgba(20,17,15,0.04)] transition hover:border-[color:var(--color-ink)]/20"
+              className="inline-flex items-center gap-3 rounded-full border border-[color:var(--color-line)] bg-white py-2 pl-5 pr-5 text-[14px] text-[color:var(--color-ink-soft)] shadow-[0_1px_2px_rgba(20,17,15,0.04)] transition hover:border-[color:var(--color-ink)]/20"
             >
               <span className="flex h-6 w-6 items-center justify-center rounded-[4px] bg-[#ff6600] font-sans text-[14px] font-bold leading-none text-white">
                 Y
@@ -302,13 +302,13 @@ export default function Home() {
             </div>
             <div className="fade-up space-y-6">
               <h2 className="font-serif text-[36px] font-normal leading-[1.15] tracking-[-0.01em] sm:text-[44px]">
-                We believe the interview deserves better than a <span className="italic text-[color:var(--color-accent)]">coin flip</span>.
+                We believe AI is a <span className="italic text-[color:var(--color-accent)]">superpower</span> in preparation.
               </h2>
               <p className="text-[16px] leading-relaxed text-[color:var(--color-mute)]">
-                Trueplace builds the AI interview infrastructure that high-stakes industries have always needed — voice-native, expert-aligned, and obsessively tuned for one job at a time.
+                The hardest interviews — the ones that change careers — used to belong to candidates with the right coach, mentor, or peer. AI changes that. Every candidate gets unlimited practice with an interviewer that adapts to them, in real time.
               </p>
               <p className="text-[16px] leading-relaxed text-[color:var(--color-mute)]">
-                Each product we ship is a vertical bet on a single career path: consulting, medicine, and more to come. Every candidate that practices with us walks into the room sharper than they walked out of the last one.
+                Trueplace builds the AI interviewers that high-stakes careers deserve — voice-native, expert-aligned, and obsessively tuned for one job at a time.
               </p>
             </div>
           </div>
