@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: var(--font-instrument-serif), "Tiempos Headline", "Newsreader", Georgia, serif;
+  --font-serif: var(--font-season-serif), "Tiempos Headline", "Source Serif 4", Georgia, serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --color-ink: #14110f;
   --color-ink-soft: #2a221d;
@@ -32,7 +32,9 @@ body {
   color: #ffffff;
 }
 
-.font-serif { font-family: var(--font-serif); }
+.font-serif {
+  font-family: var(--font-serif);
+}
 .font-mono  { font-family: var(--font-mono); }
 
 .dotted-divider {

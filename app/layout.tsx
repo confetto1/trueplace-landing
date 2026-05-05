@@ -1,4 +1,5 @@
-import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
 const inter = Inter({
@@ -8,12 +9,11 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-const instrumentSerif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['normal', 'italic'],
+// Season Serif VF Light — paid font (Pangram Pangram). Local file for evaluation only.
+const seasonSerif = localFont({
+  src: './fonts/season-serif-light.woff2',
   display: 'swap',
-  variable: '--font-instrument-serif',
+  variable: '--font-season-serif',
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${seasonSerif.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans">{children}</body>
     </html>
   );

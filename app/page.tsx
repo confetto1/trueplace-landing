@@ -331,10 +331,10 @@ export default function Home() {
           </p>
           <div className="fade-up mt-10">
             <a
-              href="mailto:hello@trueplace.ai"
+              href="mailto:hello@trueplace.ca"
               className="group inline-flex items-center gap-2 rounded-md bg-[color:var(--color-ink)] px-6 py-3 text-[14px] font-medium text-white transition hover:bg-[color:var(--color-accent)]"
             >
-              <span className="font-mono text-[14px]">hello@trueplace.ai</span>
+              <span className="font-mono text-[14px]">hello@trueplace.ca</span>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition group-hover:translate-x-0.5">
                 <path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -354,7 +354,7 @@ export default function Home() {
           <div className="flex items-center gap-8 text-[14px] text-[color:var(--color-mute)]">
             <a href="https://soreno.ai" target="_blank" rel="noreferrer" className="transition hover:text-[color:var(--color-ink)]">Soreno AI</a>
             <a href="https://confetto.ai" target="_blank" rel="noreferrer" className="transition hover:text-[color:var(--color-ink)]">Confetto AI</a>
-            <a href="mailto:hello@trueplace.ai" className="transition hover:text-[color:var(--color-ink)]">Contact</a>
+            <a href="mailto:hello@trueplace.ca" className="transition hover:text-[color:var(--color-ink)]">Contact</a>
           </div>
         </div>
       </footer>
