@@ -243,39 +243,6 @@ export default function Home() {
           </div>
 
           <div className="mt-16 grid gap-6 md:grid-cols-2">
-            {/* Soreno */}
-            <div className="product-card fade-up relative flex flex-col overflow-hidden rounded-2xl border border-[rgba(176,74,42,0.35)] bg-white/70 p-8 shadow-[0_24px_60px_-28px_rgba(20,17,15,0.18)] backdrop-blur sm:p-10">
-              <div className="flex h-12 items-center justify-between">
-                <Image
-                  src="/soreno-logo.png"
-                  alt="Soreno"
-                  width={180}
-                  height={32}
-                  className="h-7 w-auto object-contain"
-                />
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-mute)]">Consulting</span>
-              </div>
-              <h3 className="mt-10 font-serif text-[26px] font-normal leading-[1.15] tracking-[-0.01em] sm:text-[30px]">
-                The trusted interviewer for the next <span className="italic text-[color:var(--color-accent)]">generation</span> of strategy.
-              </h3>
-              <p className="mt-5 flex-1 text-[15px] leading-relaxed text-[color:var(--color-mute)]">
-                A real-time AI that prepares candidates for consulting, strategy, and product management.
-              </p>
-              <div className="mt-10">
-                <a
-                  href="https://soreno.ai"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group inline-flex items-center gap-2 rounded-md bg-[color:var(--color-accent)] px-5 py-2.5 text-[14px] font-medium text-white transition hover:bg-[color:var(--color-ink)]"
-                >
-                  Visit Soreno
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition group-hover:translate-x-0.5">
-                    <path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-
             {/* Confetto */}
             <div className="product-card fade-up relative flex flex-col overflow-hidden rounded-2xl border border-[rgba(176,74,42,0.35)] bg-white/70 p-8 shadow-[0_24px_60px_-28px_rgba(20,17,15,0.18)] backdrop-blur sm:p-10">
               <div className="flex h-12 items-center justify-between">
@@ -302,6 +269,39 @@ export default function Home() {
                   className="group inline-flex items-center gap-2 rounded-md bg-[color:var(--color-accent)] px-5 py-2.5 text-[14px] font-medium text-white transition hover:bg-[color:var(--color-ink)]"
                 >
                   Visit Confetto
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition group-hover:translate-x-0.5">
+                    <path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Soreno */}
+            <div className="product-card fade-up relative flex flex-col overflow-hidden rounded-2xl border border-[rgba(176,74,42,0.35)] bg-white/70 p-8 shadow-[0_24px_60px_-28px_rgba(20,17,15,0.18)] backdrop-blur sm:p-10">
+              <div className="flex h-12 items-center justify-between">
+                <Image
+                  src="/soreno-logo.png"
+                  alt="Soreno"
+                  width={180}
+                  height={32}
+                  className="h-7 w-auto object-contain"
+                />
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-mute)]">Strategy</span>
+              </div>
+              <h3 className="mt-10 font-serif text-[26px] font-normal leading-[1.15] tracking-[-0.01em] sm:text-[30px]">
+                The trusted interviewer for the next <span className="italic text-[color:var(--color-accent)]">generation</span> of strategy.
+              </h3>
+              <p className="mt-5 flex-1 text-[15px] leading-relaxed text-[color:var(--color-mute)]">
+                A real-time AI that prepares candidates for consulting, strategy, and product management.
+              </p>
+              <div className="mt-10">
+                <a
+                  href="https://soreno.ai"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group inline-flex items-center gap-2 rounded-md bg-[color:var(--color-accent)] px-5 py-2.5 text-[14px] font-medium text-white transition hover:bg-[color:var(--color-ink)]"
+                >
+                  Visit Soreno
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition group-hover:translate-x-0.5">
                     <path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -462,8 +462,8 @@ export default function Home() {
             <span className="ml-3 font-mono text-[11px] text-[color:var(--color-mute)]">© {new Date().getFullYear()}</span>
           </div>
           <div className="flex items-center gap-8 text-[14px] text-[color:var(--color-mute)]">
-            <a href="https://soreno.ai" target="_blank" rel="noreferrer" className="transition hover:text-[color:var(--color-ink)]">Soreno AI</a>
             <a href="https://confetto.ai" target="_blank" rel="noreferrer" className="transition hover:text-[color:var(--color-ink)]">Confetto AI</a>
+            <a href="https://soreno.ai" target="_blank" rel="noreferrer" className="transition hover:text-[color:var(--color-ink)]">Soreno AI</a>
             <a href="mailto:hello@trueplace.ca" className="transition hover:text-[color:var(--color-ink)]">Contact</a>
           </div>
         </div>
